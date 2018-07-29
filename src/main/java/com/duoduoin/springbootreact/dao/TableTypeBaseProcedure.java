@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -46,7 +47,7 @@ public class TableTypeBaseProcedure extends StoredProcedure {
 		compile();
 	}
 
-	public KeyValueObject[] execute(KeyValueObject[] keyValueObjects) {
+	public KeyValueObject[] execute(List<KeyValueObject> keyValueObjects) {
 		Map<String, Object> params = new HashMap<>();
 		params.put(I_ARRAY, new KeyValueSqlType(keyValueObjects));
 
@@ -55,7 +56,7 @@ public class TableTypeBaseProcedure extends StoredProcedure {
 		if ((!result.containsKey(O_ARRAY) || result.get(O_ARRAY) == null)) {
 			return null;
 		}
-
+		
 		try {
 			Object[] resultArray = (Object[]) ((ARRAY) result.get(O_ARRAY)).getArray();
 

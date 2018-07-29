@@ -2,18 +2,18 @@ package com.duoduoin.springbootreact.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
 
 import oracle.jdbc.OracleConnection;
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
 
 public class KeyValueSqlType extends AbstractSqlTypeValue {
 
-	private KeyValueObject[] keyValueObjects;
+	private List<KeyValueObject> keyValueObjects;
 
-	public KeyValueSqlType(KeyValueObject[] keyValueObjects) {
+	public KeyValueSqlType(List<KeyValueObject> keyValueObjects) {
 		this.keyValueObjects = keyValueObjects;
 	}
 
@@ -27,9 +27,13 @@ public class KeyValueSqlType extends AbstractSqlTypeValue {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		ArrayDescriptor arrayDescriptor = new ArrayDescriptor(typeName, orlConn);
-		return new ARRAY(arrayDescriptor, orlConn, keyValueObjects);
+//		Map map = orlConn.getTypeMap();
+//		map.put("KEYVALUEOBJECT", KeyValueObject.class);
+//		orlConn.setTypeMap(map);
+		
+		return orlConn.createOracleArray(typeName, keyValueObjects.toArray());
+//		ArrayDescriptor arrayDescriptor = ArrayDescriptor.createDescriptor(typeName, orlConn);
+//		return new ARRAY(arrayDescriptor, orlConn, keyValueObjects);
 	}
 
 }

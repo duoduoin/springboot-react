@@ -45,7 +45,7 @@ public class KeyValueObject implements SQLData {
 
 	@Override
 	public String getSQLTypeName() throws SQLException {
-		return "KeyValueObject";
+		return "KEYVALUEOBJECT";
 	}
 
 	@Override

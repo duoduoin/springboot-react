@@ -41,7 +41,7 @@ public class SpringbootReactApplication implements CommandLineRunner {
         item.setValue("value 2");
         list.add(item);
         
-        KeyValueObject[] arr = service.getKeyValueObjects(list.toArray(new KeyValueObject[2]));
+        KeyValueObject[] arr = service.getKeyValueObjects(list);
 
         List<KeyValueObject> list2 = Arrays.asList(arr);
         
